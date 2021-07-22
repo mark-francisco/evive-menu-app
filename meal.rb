@@ -18,6 +18,9 @@ class Breakfast < Meal
       "Side" => 0,
       "Drink" => 0,
     }
+    @main = "Eggs"
+    @side = "Toast"
+    @drink = "Coffee"
   end
 
   def validate_meal_rules
@@ -25,23 +28,23 @@ class Breakfast < Meal
   end
 
   def convert_to_menu_items
-    @order["Eggs"] = @order.delete("Main")
-    @order["Toast"] = @order.delete("Side")
+    @order[@main] = @order.delete("Main")
+    @order[@side] = @order.delete("Side")
     if @order["Drink"] == 0
       @order.delete("Drink")
       @order["Water"] = 1
     else
-      @order["Coffee"] = @order.delete("Drink")
+      @order[@drink] = @order.delete("Drink")
     end
   end
 
   def validate_breakfast_rules
-    if @order["Eggs"] && @order["Eggs"] > 1
-      raise StandardError.new("Unable to process: Eggs cannot be ordered more than once")
+    if @order[@main] && @order[@main] > 1
+      raise StandardError.new("Unable to process: #{@main} cannot be ordered more than once")
     end
 
-    if @order["Toast"] && @order["Toast"] > 1
-      raise StandardError.new("Unable to process: Toast cannot be ordered more than once")
+    if @order[@side] && @order[@side] > 1
+      raise StandardError.new("Unable to process: #{@side} cannot be ordered more than once")
     end
   end
 end
@@ -55,6 +58,9 @@ class Lunch < Meal
       "Side" => 0,
       "Drink" => 0,
     }
+    @main = "Sandwich"
+    @side = "Chips"
+    @drink = "Soda"
   end
 
   def validate_meal_rules
@@ -62,23 +68,23 @@ class Lunch < Meal
   end
 
   def convert_to_menu_items
-    @order["Sandwich"] = @order.delete("Main")
-    @order["Chips"] = @order.delete("Side")
+    @order[@main] = @order.delete("Main")
+    @order[@side] = @order.delete("Side")
     if @order["Drink"] == 0
       @order.delete("Drink")
       @order["Water"] = 1
     else
-      @order["Soda"] = @order.delete("Drink")
+      @order[@drink] = @order.delete("Drink")
     end
   end
 
   def validate_lunch_rules
-    if @order["Sandwich"] && @order["Sandwich"] > 1
-      raise StandardError.new("Unable to process: Sandwich cannot be ordered more than once")
+    if @order[@main] && @order[@main] > 1
+      raise StandardError.new("Unable to process: #{@main} cannot be ordered more than once")
     end
 
-    if @order["Soda"] && @order["Soda"] > 1
-      raise StandardError.new("Unable to process: Soda cannot be ordered more than once")
+    if @order[@drink] && @order[@drink] > 1
+      raise StandardError.new("Unable to process: #{@drink} cannot be ordered more than once")
     end
   end
 end
@@ -93,6 +99,10 @@ class Dinner < Meal
       "Drink" => 0,
       "Dessert" => 0,
     }
+    @main = "Steak"
+    @side = "Potatoes"
+    @drink = "Wine"
+    @dessert = "Cake"
   end
 
   def validate_meal_rules
@@ -100,15 +110,15 @@ class Dinner < Meal
   end
 
   def convert_to_menu_items
-    @order["Steak"] = @order.delete("Main")
-    @order["Potatoes"] = @order.delete("Side")
-    @order["Wine"] = @order.delete("Drink")
+    @order[@main] = @order.delete("Main")
+    @order[@side] = @order.delete("Side")
+    @order[@drink] = @order.delete("Drink")
     @order["Water"] = 1
-    @order["Cake"] = @order.delete("Dessert")
+    @order[@dessert] = @order.delete("Dessert")
   end
 
   def validate_dinner_rules
-    if @order["Cake"] < 1
+    if @order[@dessert] < 1
       raise StandardError.new("Unable to process: Dessert is missing")
     end
   end

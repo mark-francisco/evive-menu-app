@@ -7,8 +7,9 @@ menu_mapping = {
   "4" => "Dessert",
 }
 
-puts "Enter your order in the following format: 'Meal item1,item2,item3'."
-puts "When you are done, input 'exit' to quit the application."
+puts "Enter your order in the following format: 'Meal item1,item2,item3'"
+puts "Input 'exit' to quit the app"
+puts
 
 while true
   puts "What's the order?"
@@ -28,6 +29,11 @@ while true
     meal = Dinner.new
   else
     puts "Sorry, that's not a valid meal."
+    return
+  end
+
+  if !order_input[1]
+    puts "No menu items provided."
     return
   end
 
