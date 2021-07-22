@@ -7,6 +7,17 @@ class Meal
       raise StandardError.new("Unable to proces: Side is missing")
     end
   end
+
+  def convert_to_menu_items
+    @order[@main] = @order.delete("Main")
+    @order[@side] = @order.delete("Side")
+    if @order["Drink"] == 0
+      @order.delete("Drink")
+      @order["Water"] = 1
+    else
+      @order[@drink] = @order.delete("Drink")
+    end
+  end
 end
 
 class Breakfast < Meal
@@ -28,14 +39,7 @@ class Breakfast < Meal
   end
 
   def convert_to_menu_items
-    @order[@main] = @order.delete("Main")
-    @order[@side] = @order.delete("Side")
-    if @order["Drink"] == 0
-      @order.delete("Drink")
-      @order["Water"] = 1
-    else
-      @order[@drink] = @order.delete("Drink")
-    end
+    super
   end
 
   def validate_breakfast_rules
@@ -68,14 +72,7 @@ class Lunch < Meal
   end
 
   def convert_to_menu_items
-    @order[@main] = @order.delete("Main")
-    @order[@side] = @order.delete("Side")
-    if @order["Drink"] == 0
-      @order.delete("Drink")
-      @order["Water"] = 1
-    else
-      @order[@drink] = @order.delete("Drink")
-    end
+    super
   end
 
   def validate_lunch_rules
